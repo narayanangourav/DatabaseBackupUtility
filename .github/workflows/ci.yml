@@ -24,8 +24,24 @@ jobs:
       - name: Run Tests
         run: uv run pytest
 
-  build:
+  package:
     needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v6
+      - name: Set Up uv
+        uses: astral-sh/setup-uv@v6
+      - name: Build Python Package
+        run: uv build
+      - name: Upload Package Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package
+          path: dist/
+
+  build:
+    needs: package
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Repository

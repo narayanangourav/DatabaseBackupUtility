@@ -6,3 +6,5 @@ backups/
 .env
 *.egg-info/
 backups/
+build/
+dist/
