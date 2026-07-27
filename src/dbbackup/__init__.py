@@ -1,0 +1,3 @@
+"""Database backup command-line utility."""
+
+__version__ = "0.1.0"
