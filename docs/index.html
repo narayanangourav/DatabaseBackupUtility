@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Database Backup Utility</title>
+  </head>
+  <body>
+    <main>
+      <h1>Database Backup Utility</h1>
+      <p>A cross-platform CLI and web UI for compressed database backups and restores.</p>
+      <h2>Run the Container</h2>
+      <pre><code>docker run --rm -p 7575:7575 -v dbbackup-data:/data/backups ghcr.io/OWNER/dbbackup:latest</code></pre>
+      <p>Open <code>http://localhost:7575/backup</code> after the container starts.</p>
+      <p>See the repository README for database connection, storage, restore, and security guidance.</p>
+    </main>
+  </body>
+</html>

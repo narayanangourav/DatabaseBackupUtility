@@ -1,0 +1,20 @@
+services:
+  dbbackup:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/${GHCR_OWNER:-replace-me}/dbbackup:local
+    container_name: dbbackup
+    environment:
+      DBBACKUP_UI_HOST: 0.0.0.0
+      DBBACKUP_UI_PORT: 7575
+      DBBACKUP_PASSWORD: ${DBBACKUP_PASSWORD:-}
+      DBBACKUP_SLACK_WEBHOOK: ${DBBACKUP_SLACK_WEBHOOK:-}
+    ports:
+      - "7575:7575"
+    volumes:
+      - backup-data:/data/backups
+    restart: unless-stopped
+
+volumes:
+  backup-data:

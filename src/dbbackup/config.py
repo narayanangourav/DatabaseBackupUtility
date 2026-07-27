@@ -7,6 +7,6 @@ class Settings(BaseSettings):
     """Configuration shared by optional application entry points."""
 
     ui_host: str = "127.0.0.1"
-    ui_port: int = 7860
+    ui_port: int = 7575
 
     model_config = SettingsConfigDict(env_prefix="DBBACKUP_", env_file=".env", extra="ignore")

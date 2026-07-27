@@ -6,6 +6,7 @@ import sys
 import time
 from pathlib import Path
 
+from .config import Settings
 from .core.adapters import get_adapter
 from .exceptions import BackupError
 from .models.backup import BackupOptions, ConnectionOptions, RestoreOptions
@@ -25,6 +26,7 @@ def _add_connection_arguments(parser: argparse.ArgumentParser) -> None:
 
 
 def _build_parser() -> argparse.ArgumentParser:
+    settings = Settings()
     parser = argparse.ArgumentParser(prog="dbbackup", description="Stream, compress, store, and restore database backups.")
     parser.add_argument("--log-file", type=Path, help="Optional activity log destination")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -44,8 +46,8 @@ def _build_parser() -> argparse.ArgumentParser:
     schedule_parser.add_argument("--every-minutes", type=int, required=True)
     schedule_parser.add_argument("backup_arguments", nargs=argparse.REMAINDER, help="Arguments after -- passed to backup")
     serve_parser = commands.add_parser("serve", help="Launch the Gradio web interface")
-    serve_parser.add_argument("--host", default="127.0.0.1")
-    serve_parser.add_argument("--port", type=int, default=7860)
+    serve_parser.add_argument("--host", default=settings.ui_host)
+    serve_parser.add_argument("--port", type=int, default=settings.ui_port)
     return parser
 
 
