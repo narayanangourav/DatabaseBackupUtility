@@ -3,16 +3,125 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Static preview of the Database Backup Utility interface." />
     <title>Database Backup Utility</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main>
-      <h1>Database Backup Utility</h1>
-      <p>A cross-platform CLI and web UI for compressed database backups and restores.</p>
-      <h2>Run the Container</h2>
-      <pre><code>docker run --rm -p 7575:7575 -v dbbackup-data:/data/backups ghcr.io/OWNER/dbbackup:latest</code></pre>
-      <p>Open <code>http://localhost:7575/backup</code> after the container starts.</p>
-      <p>See the repository README for database connection, storage, restore, and security guidance.</p>
+    <main class="application-shell">
+      <header class="application-header">
+        <p class="eyebrow">Static GitHub Pages Preview</p>
+        <h1>Database Backup Utility</h1>
+        <p>Create, store, and restore compressed database backups.</p>
+      </header>
+
+      <section class="notice" aria-label="Static preview notice">
+        <strong>Preview Only:</strong> This GitHub Pages site shows the local application design. Backup and restore
+        actions are disabled because GitHub Pages cannot run Python or database tools.
+      </section>
+
+      <div class="tabs" role="tablist" aria-label="Backup Operations">
+        <button
+          id="backup-tab"
+          class="tab is-active"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          aria-controls="backup-panel"
+        >
+          Backup
+        </button>
+        <button
+          id="restore-tab"
+          class="tab"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          aria-controls="restore-panel"
+        >
+          Restore
+        </button>
+      </div>
+
+      <section id="backup-panel" class="tab-panel" role="tabpanel" aria-labelledby="backup-tab">
+        <form>
+          <div class="form-row form-row-four">
+            <label
+              >Database Engine <span aria-label="required">*</span
+              ><select disabled>
+                <option>SQLite</option>
+              </select></label
+            >
+            <label
+              >Database Name or SQLite File Path <span aria-label="required">*</span
+              ><input disabled placeholder="C:\data\app.db or my_database"
+            /></label>
+            <label>Host<input disabled placeholder="localhost or db.example.com" /></label>
+            <label>Port<input disabled placeholder="5432 for PostgreSQL" /></label>
+          </div>
+          <div class="form-row form-row-three">
+            <label>Username<input disabled placeholder="postgres, root, or database user" /></label>
+            <label
+              >Password<input disabled type="password" placeholder="Leave blank to use environment credentials"
+            /></label>
+            <label
+              >Backup Type <span aria-label="required">*</span
+              ><select disabled>
+                <option>Full</option>
+              </select></label
+            >
+          </div>
+          <div class="form-row form-row-three">
+            <label
+              >Local Output Directory <span aria-label="required">*</span><input disabled placeholder="C:\backups"
+            /></label>
+            <label>Optional Storage Target<input disabled placeholder="s3://company-backups/production" /></label>
+            <label>Optional Slack Webhook<input disabled placeholder="https://hooks.slack.com/services/..." /></label>
+          </div>
+          <button class="primary-button" type="button" disabled>Create Backup</button>
+        </form>
+      </section>
+
+      <section id="restore-panel" class="tab-panel is-hidden" role="tabpanel" aria-labelledby="restore-tab">
+        <form>
+          <div class="form-row form-row-four">
+            <label
+              >Database Engine <span aria-label="required">*</span
+              ><select disabled>
+                <option>SQLite</option>
+              </select></label
+            >
+            <label
+              >Database Name or SQLite File Path <span aria-label="required">*</span
+              ><input disabled placeholder="C:\data\restored.db or my_database"
+            /></label>
+            <label>Host<input disabled placeholder="localhost or db.example.com" /></label>
+            <label>Port<input disabled placeholder="5432 for PostgreSQL" /></label>
+          </div>
+          <div class="form-row form-row-two">
+            <label>Username<input disabled placeholder="postgres, root, or database user" /></label>
+            <label
+              >Password<input disabled type="password" placeholder="Leave blank to use environment credentials"
+            /></label>
+          </div>
+          <div class="form-row form-row-two">
+            <label
+              >Compressed Backup Archive Path <span aria-label="required">*</span
+              ><input disabled placeholder="C:\backups\my_database.postgres.gz"
+            /></label>
+            <label>Optional Tables or Collections<input disabled placeholder="users, orders, audit_log" /></label>
+          </div>
+          <button class="primary-button" type="button" disabled>Restore Backup</button>
+        </form>
+      </section>
+
+      <section class="local-run">
+        <h2>Run The Functional Application Locally</h2>
+        <pre><code>uv sync
+uv run dbbackup serve</code></pre>
+        <p>Then open <code>http://127.0.0.1:7575/backup</code>.</p>
+      </section>
     </main>
+    <script src="app.js"></script>
   </body>
 </html>

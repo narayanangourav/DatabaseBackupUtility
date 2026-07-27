@@ -2,8 +2,8 @@
   "name": "dbbackup",
   "private": true,
   "scripts": {
-    "format": "prettier --write \"**/*.{css,html,json,md,yaml,yml}\"",
-    "format:check": "prettier --check \"**/*.{css,html,json,md,yaml,yml}\"",
+    "format": "prettier --write \"**/*.{css,html,js,json,md,yaml,yml}\"",
+    "format:check": "prettier --check \"**/*.{css,html,js,json,md,yaml,yml}\"",
     "lint": "npm run lint:python && npm run format:check",
     "lint:python": "uv run ruff check src tests",
     "prepare": "husky"
