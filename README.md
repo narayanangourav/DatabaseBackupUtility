@@ -6,12 +6,12 @@ Source code is contained in `src/dbbackup/`, with core adapters, typed models, o
 
 ## Supported engines
 
-| Engine | Backup/restore tool |
-| --- | --- |
-| SQLite | Built-in Python SQLite backup API |
-| MySQL / MariaDB | `mysqldump` / `mysql` |
-| PostgreSQL | `pg_dump` / `pg_restore` or `psql` |
-| MongoDB | `mongodump` / `mongorestore` |
+| Engine          | Backup/restore tool                |
+| --------------- | ---------------------------------- |
+| SQLite          | Built-in Python SQLite backup API  |
+| MySQL / MariaDB | `mysqldump` / `mysql`              |
+| PostgreSQL      | `pg_dump` / `pg_restore` or `psql` |
+| MongoDB         | `mongodump` / `mongorestore`       |
 
 Install the relevant native client tool and ensure it is on `PATH`. Set `DBBACKUP_PASSWORD` for MySQL and PostgreSQL, or use the DBMS's own credential mechanism (for example `.pgpass`). MongoDB credentials are supplied by the engine's configured authentication method.
 
@@ -71,12 +71,12 @@ The final `Deploy GitHub Pages` job in the `CI` workflow publishes only the stat
 
 For the live container host, configure these environment variables through its secret manager or deployment settings:
 
-| Variable | Required | Purpose |
-| --- | --- | --- |
-| `DBBACKUP_UI_HOST` | Yes | Set to `0.0.0.0` in containers. |
-| `DBBACKUP_UI_PORT` | Yes | Set to `7575`. |
-| `DBBACKUP_PASSWORD` | When DB authentication requires it | Database password for MySQL/PostgreSQL. |
-| `DBBACKUP_SLACK_WEBHOOK` | No | Slack completion notifications. |
+| Variable                 | Required                           | Purpose                                 |
+| ------------------------ | ---------------------------------- | --------------------------------------- |
+| `DBBACKUP_UI_HOST`       | Yes                                | Set to `0.0.0.0` in containers.         |
+| `DBBACKUP_UI_PORT`       | Yes                                | Set to `7575`.                          |
+| `DBBACKUP_PASSWORD`      | When DB authentication requires it | Database password for MySQL/PostgreSQL. |
+| `DBBACKUP_SLACK_WEBHOOK` | No                                 | Slack completion notifications.         |
 
 Use `uv run dbbackup --help` and `uv run dbbackup backup --help` for all options. A backup type is recorded in the manifest. Full backups work for every adapter; incremental and differential backups are rejected unless an adapter can safely provide them, rather than silently creating an incorrect backup. Additional DBMSs can be added as focused adapters around their supported native dump and restore tools.
 

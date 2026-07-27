@@ -11,7 +11,7 @@ services:
       DBBACKUP_PASSWORD: ${DBBACKUP_PASSWORD:-}
       DBBACKUP_SLACK_WEBHOOK: ${DBBACKUP_SLACK_WEBHOOK:-}
     ports:
-      - "7575:7575"
+      - '7575:7575'
     volumes:
       - backup-data:/data/backups
     restart: unless-stopped

@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches: [master]
-    tags: ["v*"]
+    tags: ['v*']
   pull_request:
   workflow_dispatch:
 
@@ -21,6 +21,15 @@ jobs:
         uses: astral-sh/setup-uv@v6
       - name: Install Test Dependencies
         run: uv sync --group dev
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install Formatting Dependencies
+        run: npm ci
+      - name: Run Lint Checks
+        run: npm run lint
       - name: Run Tests
         run: uv run pytest
 

@@ -55,7 +55,8 @@ def _run_schedule(arguments: argparse.Namespace) -> int:
     if arguments.every_minutes < 1 or not arguments.backup_arguments:
         raise BackupError("Schedule needs --every-minutes >= 1 and backup arguments after '--'.")
     backup_arguments = list(arguments.backup_arguments)
-    if backup_arguments[0] == "--": backup_arguments.pop(0)
+    if backup_arguments[0] == "--":
+        backup_arguments.pop(0)
     while True:
         result = main(["backup", *backup_arguments])
         if result != 0:

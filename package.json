@@ -1,0 +1,15 @@
+{
+  "name": "dbbackup",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"**/*.{css,html,json,md,yaml,yml}\"",
+    "format:check": "prettier --check \"**/*.{css,html,json,md,yaml,yml}\"",
+    "lint": "npm run lint:python && npm run format:check",
+    "lint:python": "uv run ruff check src tests",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2"
+  }
+}

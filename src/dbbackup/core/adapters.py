@@ -110,9 +110,12 @@ class MySQLAdapter(NativeAdapter):
 
     def _base_connection_args(self, c: ConnectionOptions) -> list[str]:
         arguments = []
-        if c.host: arguments += ["--host", c.host]
-        if c.port: arguments += ["--port", str(c.port)]
-        if c.user: arguments += ["--user", c.user]
+        if c.host:
+            arguments += ["--host", c.host]
+        if c.port:
+            arguments += ["--port", str(c.port)]
+        if c.user:
+            arguments += ["--user", c.user]
         return arguments
 
     def backup(self, c: ConnectionOptions, destination: Path) -> None:
@@ -131,9 +134,12 @@ class PostgresAdapter(NativeAdapter):
 
     def _base_connection_args(self, c: ConnectionOptions) -> list[str]:
         arguments = ["--dbname", c.database]
-        if c.host: arguments += ["--host", c.host]
-        if c.port: arguments += ["--port", str(c.port)]
-        if c.user: arguments += ["--username", c.user]
+        if c.host:
+            arguments += ["--host", c.host]
+        if c.port:
+            arguments += ["--port", str(c.port)]
+        if c.user:
+            arguments += ["--username", c.user]
         return arguments
 
     def test_connection(self, c: ConnectionOptions) -> None:
@@ -148,7 +154,8 @@ class PostgresAdapter(NativeAdapter):
     def restore(self, options: RestoreOptions) -> None:
         _require_tool("pg_restore")
         command = ["pg_restore", "--clean", "--if-exists", "--no-owner", *self._base_connection_args(options.connection)]
-        for table in options.tables: command += ["--table", table]
+        for table in options.tables:
+            command += ["--table", table]
         with options.archive.open("rb") as source:
             _run(command, source, password=options.connection.password)
 
@@ -173,7 +180,8 @@ class MongoAdapter(NativeAdapter):
     def restore(self, options: RestoreOptions) -> None:
         _require_tool("mongorestore")
         command = ["mongorestore", "--uri", self._uri(options.connection), "--archive", str(options.archive)]
-        for table in options.tables: command += ["--nsInclude", f"{options.connection.database}.{table}"]
+        for table in options.tables:
+            command += ["--nsInclude", f"{options.connection.database}.{table}"]
         _run(command)
 
 

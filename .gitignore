@@ -8,3 +8,4 @@ backups/
 backups/
 build/
 dist/
+node_modules/
