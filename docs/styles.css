@@ -99,14 +99,19 @@ body {
 }
 
 label {
-  display: grid;
-  gap: 8px;
+  display: block;
   font-size: 0.85rem;
   font-weight: 700;
 }
 
 label span {
   color: var(--error);
+}
+
+label input,
+label select {
+  display: block;
+  margin-top: 8px;
 }
 
 input,
