@@ -1,6 +1,6 @@
 FROM python:3.12-slim AS runtime
 
-ARG MONGO_TOOLS_VERSION=100.17.0
+ARG MONGO_TOOLS_VERSION=100.15.0
 ARG MONGOSH_VERSION=2.9.2
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -12,15 +12,12 @@ WORKDIR /app
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y ca-certificates curl default-mysql-client postgresql-client \
-    && curl --fail --location --silent --show-error \
-        "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-debian12-x86_64-${MONGO_TOOLS_VERSION}.tgz" \
-        | tar --extract --gzip --strip-components=2 --directory=/usr/local/bin \
-            "mongodb-database-tools-debian12-x86_64-${MONGO_TOOLS_VERSION}/bin/mongodump" \
-            "mongodb-database-tools-debian12-x86_64-${MONGO_TOOLS_VERSION}/bin/mongorestore" \
+    && curl --fail --location --silent --show-error --output /tmp/mongodb-tools.deb \
+        "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-debian12-x86_64-${MONGO_TOOLS_VERSION}.deb" \
     && curl --fail --location --silent --show-error --output /tmp/mongosh.deb \
-        "https://downloads.mongodb.com/compass/mongosh_${MONGOSH_VERSION}_amd64.deb" \
-    && apt-get install --no-install-recommends -y /tmp/mongosh.deb \
-    && rm --force /tmp/mongosh.deb \
+        "https://downloads.mongodb.com/compass/mongodb-mongosh_${MONGOSH_VERSION}_amd64.deb" \
+    && apt-get install --no-install-recommends -y /tmp/mongodb-tools.deb /tmp/mongosh.deb \
+    && rm --force /tmp/mongodb-tools.deb /tmp/mongosh.deb \
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/*
 
